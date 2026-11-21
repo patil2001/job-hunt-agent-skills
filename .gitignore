@@ -4,3 +4,5 @@ recruiter_pool*.json
 sent_log*.json
 *.xlsx
 *.pdf
+.venv/
+__pycache__/

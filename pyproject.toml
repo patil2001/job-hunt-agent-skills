@@ -1,0 +1,13 @@
+[project]
+name = "jobhunt-callback"
+version = "0.1.0"
+description = "Scrape recent job postings across LinkedIn, Indeed, Glassdoor, ZipRecruiter, Google Jobs and Naukri, ranked by callback likelihood."
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = ["python-jobspy", "pandas", "openpyxl"]
+
+[project.scripts]
+jobhunt = "jobhunt.cli:main"
+
+[tool.setuptools]
+packages = ["jobhunt"]

@@ -15,7 +15,52 @@ Every irreversible step (saving a profile edit, submitting an application, sendi
 | [`naukri-job-autoapply`](skills/naukri-job-autoapply/SKILL.md) | Same pipeline for Naukri.com. |
 | [`recruiter-cold-email`](skills/recruiter-cold-email/SKILL.md) | Builds a recruiter contact pool, drafts personalized cold emails, previews a batch, sends via Gmail with daily caps and a 30-day cooldown. |
 
-## Install
+### Profile optimizers for every major job platform
+
+Each one mines the latest postings on that platform, studies how strong candidates present themselves there, then rewrites your profile section by section (with your approval).
+
+| Platform | Region | Skill |
+|---|---|---|
+| LinkedIn | Global | [`linkedin-recruiter-optimizer`](skills/linkedin-recruiter-optimizer/SKILL.md) |
+| Naukri | India | [`naukri-profile-optimizer`](skills/naukri-profile-optimizer/SKILL.md) |
+| Indeed | Global | [`indeed-profile-optimizer`](skills/indeed-profile-optimizer/SKILL.md) |
+| Glassdoor | Global | [`glassdoor-profile-optimizer`](skills/glassdoor-profile-optimizer/SKILL.md) |
+| Wellfound (AngelList) | Startups, global | [`wellfound-profile-optimizer`](skills/wellfound-profile-optimizer/SKILL.md) |
+| Instahyre | India | [`instahyre-profile-optimizer`](skills/instahyre-profile-optimizer/SKILL.md) |
+| foundit (Monster) | India, Gulf, SEA | [`foundit-profile-optimizer`](skills/foundit-profile-optimizer/SKILL.md) |
+| hirist.tech | India tech | [`hirist-profile-optimizer`](skills/hirist-profile-optimizer/SKILL.md) |
+| Cutshort | India startups | [`cutshort-profile-optimizer`](skills/cutshort-profile-optimizer/SKILL.md) |
+| Dice | US tech | [`dice-profile-optimizer`](skills/dice-profile-optimizer/SKILL.md) |
+| ZipRecruiter | US, UK, CA | [`ziprecruiter-profile-optimizer`](skills/ziprecruiter-profile-optimizer/SKILL.md) |
+
+The nine generic ones are generated from [`tools/gen_platform_skills.py`](tools/gen_platform_skills.py): edit the platform facts there and re-run.
+
+## `jobhunt`: scrape recent jobs, ranked by callback likelihood
+
+A small Python library + CLI on top of [JobSpy](https://github.com/speedyapply/JobSpy). It pulls the newest postings from **LinkedIn, Indeed, Glassdoor, ZipRecruiter, Google Jobs and Naukri**, de-duplicates them, and ranks each one by how likely you are to get a callback:
+
+| Signal | Points |
+|---|---|
+| Posted < 24h (72h: 20, 7d: 10) | 30 |
+| Your skills found in the posting | 30 |
+| Minimum experience within your reach | 15 |
+| Title not above your level (no Senior/Lead/Principal unless `--allow-senior`) | 10 |
+| Easy / in-platform apply | 5 |
+| Direct employer apply link | 5 |
+| Salary shown | 5 |
+
+```bash
+pip install git+https://github.com/patil2001/job-hunt-agent-skills
+jobhunt scrape --sites linkedin indeed naukri --role "Java Developer" --location Bangalore \
+  --skills java "spring boot" microservices kafka aws --years 3 --hours 24 --top 50 \
+  --out jobs.xlsx --keywords-report
+```
+
+Output: `jobs.xlsx` sorted by `callback_score`, with matched skills and the per-signal breakdown, plus the most frequent skills across all postings (feed that into the profile optimizers). Use `--country usa` (or `uk`, ...) for Indeed/Glassdoor outside India.
+
+Wellfound, Instahyre, foundit, hirist, Cutshort and Dice block plain scrapers; their skills collect postings in the browser and score them with the same weights.
+
+## Install skills
 
 Claude Code:
 
