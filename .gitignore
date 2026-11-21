@@ -1,0 +1,6 @@
+seen_jobs.json
+*_log.json
+recruiter_pool*.json
+sent_log*.json
+*.xlsx
+*.pdf
