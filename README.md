@@ -58,7 +58,7 @@ jobhunt scrape --sites linkedin indeed naukri --role "Java Developer" --location
 
 Output: `jobs.xlsx` sorted by `callback_score`, with matched skills and the per-signal breakdown, plus the most frequent skills across all postings (feed that into the profile optimizers). Use `--country usa` (or `uk`, ...) for Indeed/Glassdoor outside India.
 
-Wellfound, Instahyre, foundit, hirist, Cutshort and Dice block plain scrapers; their skills collect postings in the browser and score them with the same weights.
+Naukri's API often answers `406 recaptcha required` to scrapers; when it does, the run continues with the other sites and the `naukri-job-autoapply` skill covers Naukri in the browser. Wellfound, Instahyre, foundit, hirist, Cutshort and Dice block plain scrapers; their skills collect postings in the browser and score them with the same weights.
 
 ## Install skills
 
